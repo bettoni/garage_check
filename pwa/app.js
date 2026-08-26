@@ -18,6 +18,10 @@ async function init() {
     navigator.serviceWorker.addEventListener('message', onSWMessage);
   }
 
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission();
+  }
+
   loadData();
   checkBtn.addEventListener('click', manualCheck);
 }

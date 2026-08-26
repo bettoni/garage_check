@@ -1,4 +1,4 @@
-const CACHE_NAME = 'parking-monitor-v4';
+const CACHE_NAME = 'parking-monitor-v5';
 const DATA_CACHE = 'parking-data-v1';
 const RAW_URL = 'https://www.nhw.de/zuhause-finden/stellplatz-mieten';
 const WORKER_URL = 'https://garage-check-proxy.nhw-garage-check.workers.dev/?url=';
@@ -157,6 +157,7 @@ function detectChanges(current, previous) {
 }
 
 async function showNotification(changes) {
+  if (typeof Notification === 'undefined' || Notification.permission !== 'granted') return;
   const parts = [];
   if (changes.added.length > 0) parts.push(`${changes.added.length} new`);
   if (changes.removed.length > 0) parts.push(`${changes.removed.length} removed`);
