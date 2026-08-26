@@ -1,4 +1,4 @@
-const CACHE_NAME = 'parking-monitor-v3';
+const CACHE_NAME = 'parking-monitor-v4';
 const DATA_CACHE = 'parking-data-v1';
 const RAW_URL = 'https://www.nhw.de/zuhause-finden/stellplatz-mieten';
 const WORKER_URL = 'https://garage-check-proxy.nhw-garage-check.workers.dev/?url=';
@@ -31,7 +31,7 @@ self.addEventListener('message', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.url.includes('nhw.de') || event.request.url.includes('workers.dev')) {
+  if (event.request.url.includes('nhw.de')) {
     event.respondWith(
       fetch(event.request).catch(() => caches.match(event.request))
     );
@@ -46,16 +46,9 @@ self.addEventListener('fetch', (event) => {
 
 async function checkAndNotify() {
   try {
-    let html;
-    try {
-      const resp = await fetch(PROXY_URL);
-      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-      html = await resp.text();
-    } catch {
-      const resp = await fetch(RAW_URL);
-      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-      html = await resp.text();
-    }
+    const resp = await fetch(PROXY_URL);
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const html = await resp.text();
 
     const listings = parseListings(html);
     const previous = await getPreviousListings();
