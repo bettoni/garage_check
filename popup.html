@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NHW Frankfurt Parking Monitor</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Frankfurt Parking</h1>
+      <p class="subtitle">NHW Parking Monitor</p>
+    </header>
+
+    <div id="status" class="status">
+      <span id="statusIcon" class="status-icon">⏳</span>
+      <span id="statusText">Loading...</span>
+    </div>
+
+    <div id="lastCheck" class="last-check"></div>
+
+    <button id="checkBtn" class="btn btn-primary">Check Now</button>
+
+    <div id="changes" class="changes hidden">
+      <h2>Changes</h2>
+      <div id="changesList"></div>
+    </div>
+
+    <div id="listings" class="listings">
+      <h2>Current Listings (<span id="count">0</span>)</h2>
+      <div id="listingsList"></div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

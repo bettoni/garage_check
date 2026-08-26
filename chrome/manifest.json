@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "NHW Frankfurt Parking Monitor",
+  "version": "1.0.0",
+  "description": "Monitors NHW parking space listings in Frankfurt am Main and notifies on changes",
+  "permissions": [
+    "alarms",
+    "storage",
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://www.nhw.de/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "NHW Frankfurt Parking Monitor"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
