@@ -1,7 +1,7 @@
-const CACHE_NAME = 'parking-monitor-v1';
+const CACHE_NAME = 'parking-monitor-v2';
 const DATA_CACHE = 'parking-data-v1';
 const RAW_URL = 'https://www.nhw.de/zuhause-finden/stellplatz-mieten';
-const PROXY_PATH = '/proxy/zuhause-finden/stellplatz-mieten';
+const PROXY_URL = 'https://corsproxy.io/?' + encodeURIComponent(RAW_URL);
 const CHECK_INTERVAL = 60 * 60 * 1000;
 
 self.addEventListener('install', (event) => {
@@ -30,7 +30,7 @@ self.addEventListener('message', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.url.includes('nhw.de')) {
+  if (event.request.url.includes('nhw.de') || event.request.url.includes('corsproxy.io')) {
     event.respondWith(
       fetch(event.request).catch(() => caches.match(event.request))
     );
@@ -46,9 +46,8 @@ self.addEventListener('fetch', (event) => {
 async function checkAndNotify() {
   try {
     let html;
-    const proxyUrl = self.location.origin + PROXY_PATH;
     try {
-      const resp = await fetch(proxyUrl);
+      const resp = await fetch(PROXY_URL);
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
       html = await resp.text();
     } catch {
