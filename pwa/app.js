@@ -1,6 +1,7 @@
 const CHECK_INTERVAL = 60 * 60 * 1000;
 const RAW_URL = 'https://www.nhw.de/zuhause-finden/stellplatz-mieten';
-const PROXY_URL = 'https://corsproxy.io/?' + encodeURIComponent(RAW_URL);
+const WORKER_URL = 'https://garage-check-proxy.nhw-garage-check.workers.dev/?url=';
+const PROXY_URL = WORKER_URL + encodeURIComponent(RAW_URL);
 
 let swRegistration = null;
 
